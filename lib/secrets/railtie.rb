@@ -1,7 +1,7 @@
 module Secrets
   class Railtie < ::Rails::Railtie
     config.before_initialize do
-      Secrets.environmentalize!(Secrets.file, Rails.env)
+      Secrets.environmentalize!(Rails.env)
     end
     
     rake_tasks do
