@@ -5,6 +5,7 @@ describe Secrets::Loader do
   
   before do
     @test_secrets = File.expand_path("../fixtures/test_secrets.yml", __FILE__)
+    @empty_secrets = File.expand_path("../fixtures/empty_secrets.yml", __FILE__)
   end
   
   describe "environmentalizing" do
@@ -17,6 +18,10 @@ describe Secrets::Loader do
     
     it "doesn't barf when given an empty variable" do
       expect { subject.environmentalize!(@test_secrets) }.not_to raise_error
+    end
+    
+    it "doesn't barf when given an empty file" do
+      expect { subject.environmentalize!(@empty_secrets) }.not_to raise_error
     end
     
     context "when given a scope" do
