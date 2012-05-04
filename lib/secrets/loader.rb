@@ -19,14 +19,14 @@ module Secrets
     
     def self.convert_to_env_vars(vars)
       vars.each do |key, value|
-        ENV[key] = value unless value.respond_to?(:each)
+        ENV[key] = value unless value.respond_to?(:each) || value.nil?
       end
     end
     
     def self.convert_vars_to_string(vars)
       string = ""
       vars.each do |key, value|
-        string.concat("#{key}=#{value} ") unless value.respond_to?(:each)
+        string.concat("#{key}=#{value} ") unless value.respond_to?(:each) || value.nil?
       end
       string
     end 

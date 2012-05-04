@@ -15,6 +15,10 @@ describe Secrets::Loader do
       ENV["MOST_AWESOME_NINJA_TURTLE"].should == "Donatello"
     end
     
+    it "doesn't barf when given an empty variable" do
+      expect { subject.environmentalize!(@test_secrets) }.not_to raise_error
+    end
+    
     context "when given a scope" do
       it "environmentalizes variables in the scope" do
         subject.environmentalize!(@test_secrets, "fools")
@@ -22,7 +26,11 @@ describe Secrets::Loader do
         ENV["FIRST_FOOL"].should == "Feste"
         ENV["SECOND_FOOL"].should == "Patchface"
       end
-    
+      
+      it "doesn't barf when given an empty scope" do
+        expect { subject.environmentalize!(@test_secrets, "empty_scope") }.not_to raise_error
+      end
+      
       it "still environmentalizes top-level variables" do
         ENV["FAVORITE_COLOR"] = nil
         
@@ -39,8 +47,15 @@ describe Secrets::Loader do
     end
   end
   
-  it "can return a string suitable for adding vars to Heroku" do
-    heroku_string = subject.for_heroku(@test_secrets, "fools")
-    heroku_string.should == "FAVORITE_COLOR=Rainbow MOST_AWESOME_NINJA_TURTLE=Donatello FIRST_FOOL=Feste SECOND_FOOL=Patchface "
+  describe "Heroku string:" do
+    it "can return a string suitable for adding vars to Heroku" do
+      heroku_string = subject.for_heroku(@test_secrets, "fools")
+      heroku_string.should == "FAVORITE_COLOR=Rainbow MOST_AWESOME_NINJA_TURTLE=Donatello FIRST_FOOL=Feste SECOND_FOOL=Patchface "
+    end
+    
+    it "does not include empty scopes in the string" do
+      heroku_string = subject.for_heroku(@test_secrets, "fools")
+      heroku_string.should_not include "empty_scope"
+    end
   end
 end
