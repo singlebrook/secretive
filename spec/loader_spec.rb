@@ -32,6 +32,10 @@ describe Secrets::Loader do
         ENV["SECOND_FOOL"].should == "Patchface"
       end
       
+      it "doesn't barf when given a scope filled with empty variables" do
+        expect { subject.environmentalize!(@test_secrets, "filled_with_empty") }.not_to raise_error
+      end
+      
       it "doesn't barf when given an empty scope" do
         expect { subject.environmentalize!(@test_secrets, "empty_scope") }.not_to raise_error
       end
