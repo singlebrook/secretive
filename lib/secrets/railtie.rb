@@ -1,7 +1,7 @@
 module Secrets
   class Railtie < ::Rails::Railtie
     config.before_initialize do
-      Secrets.environmentalize!(Rails.env)
+      Secrets.environmentalize!(Rails.env) unless Rails.env.production?
     end
     
     rake_tasks do
