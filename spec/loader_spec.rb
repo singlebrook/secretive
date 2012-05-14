@@ -17,16 +17,23 @@ describe Secrets::Loader do
       ENV["MOST_AWESOME_NINJA_TURTLE"].should == "Donatello"
     end
 
-    it "doesn't barf when the secrets file is missing" do
-      expect { subject.environmentalize!(@nonexistant_secrets) }.not_to raise_error
-    end
-
     it "doesn't barf when given an empty variable" do
       expect { subject.environmentalize!(@test_secrets) }.not_to raise_error
     end
 
     it "doesn't barf when given an empty file" do
       expect { subject.environmentalize!(@empty_secrets) }.not_to raise_error
+    end
+
+    context "without a secrets file" do
+      it "doesn't barf" do
+        expect { subject.environmentalize!(@nonexistant_secrets) }.not_to raise_error
+      end
+
+      it "gives a warning" do
+        subject.should_receive(:warn).with("secrets attempted to initialize, but #{@nonexistant_secrets} does not exist.")
+        subject.environmentalize!(@nonexistant_secrets)
+      end
     end
 
     context "when given a scope" do
@@ -59,6 +66,7 @@ describe Secrets::Loader do
         ENV["FIRST_FOOL"].should_not be_present
       end
     end
+
   end
 
   describe "Heroku string:" do

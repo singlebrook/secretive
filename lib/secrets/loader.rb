@@ -2,7 +2,10 @@ module Secrets
   class Loader
     class << self
       def environmentalize!(yaml_file, scope=nil)
-        return unless File.exists?(yaml_file)
+        unless File.exists?(yaml_file)
+          warn "secrets attempted to initialize, but #{yaml_file} does not exist."
+          return
+        end
 
         vars = YAML.load(File.open(yaml_file))
 
