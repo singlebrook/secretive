@@ -6,7 +6,7 @@ describe Secrets::Loader do
   before do
     @test_secrets = File.expand_path("../fixtures/test_secrets.yml", __FILE__)
     @empty_secrets = File.expand_path("../fixtures/empty_secrets.yml", __FILE__)
-    @nonexistant_secrets = File.expand_path("../fixtures/nonexistant_secrets.yml", __FILE__)
+    @nonexistent_secrets = File.expand_path("../fixtures/nonexistent_secrets.yml", __FILE__)
   end
 
   describe "environmentalizing" do
@@ -27,12 +27,12 @@ describe Secrets::Loader do
 
     context "without a secrets file" do
       it "doesn't barf" do
-        expect { subject.environmentalize!(@nonexistant_secrets) }.not_to raise_error
+        expect { subject.environmentalize!(@nonexistent_secrets) }.not_to raise_error
       end
 
       it "gives a warning" do
-        subject.should_receive(:warn).with("secrets attempted to initialize, but #{@nonexistant_secrets} does not exist.")
-        subject.environmentalize!(@nonexistant_secrets)
+        subject.should_receive(:warn).with("secrets attempted to initialize, but #{@nonexistent_secrets} does not exist.")
+        subject.environmentalize!(@nonexistent_secrets)
       end
     end
 
