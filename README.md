@@ -1,4 +1,5 @@
 # Secrets
+### Secrets, secrets, are now fun. *(Exposed secrets hurt someone.)*
 
 Secrets is a way to configure your application's ENV variables using a .yml file.
 
