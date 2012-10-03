@@ -1,7 +1,7 @@
-require_relative '../lib/secrets/loader'
+require_relative '../lib/secretive/loader'
 
-describe Secrets::Loader do
-  subject { Secrets::Loader }
+describe Secretive::Loader do
+  subject { Secretive::Loader }
 
   let(:test_secrets)        { File.expand_path("../fixtures/test_secrets.yml", __FILE__) }
   let(:empty_secrets)       { File.expand_path("../fixtures/empty_secrets.yml", __FILE__) }
@@ -29,7 +29,7 @@ describe Secrets::Loader do
       end
 
       it "gives a warning" do
-        subject.should_receive(:warn).with("secrets attempted to initialize, but #{nonexistent_secrets} does not exist.")
+        subject.should_receive(:warn).with("secretive attempted to initialize, but #{nonexistent_secrets} does not exist.")
         subject.environmentalize!(nonexistent_secrets)
       end
     end

@@ -1,7 +1,7 @@
-require_relative '../lib/secrets'
+require_relative '../lib/secretive'
 
-describe Secrets do
-  subject { Secrets }
+describe Secretive do
+  subject { Secretive }
 
   it "supports reading and writing a file" do
     subject.file = "myfile"

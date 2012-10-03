@@ -1,9 +1,9 @@
-module Secrets
+module Secretive
   class Loader
     class << self
       def environmentalize!(yaml_file, scope=nil)
         unless File.exists?(yaml_file)
-          warn "secrets attempted to initialize, but #{yaml_file} does not exist."
+          warn "secretive attempted to initialize, but #{yaml_file} does not exist."
           return
         end
 
