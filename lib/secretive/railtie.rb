@@ -1,7 +1,7 @@
 module Secretive
   class Railtie < ::Rails::Railtie
     config.before_initialize do
-      Secretive.environmentalize!(Rails.env) unless Rails.env.production?
+      Secretive.environmentalize!(Rails.env)
     end
 
     rake_tasks do
