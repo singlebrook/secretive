@@ -8,6 +8,7 @@ module Secretive
         end
 
         vars = YAML.load(File.open(yaml_file))
+        return unless vars.present?
 
         convert_to_env_vars(vars)
         convert_to_env_vars(vars.fetch(scope)) if scope.present?

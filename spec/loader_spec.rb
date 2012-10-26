@@ -50,6 +50,10 @@ describe Secretive::Loader do
         expect { subject.environmentalize!(test_secrets, "empty_scope") }.not_to raise_error
       end
 
+      it "doesn't barf when given a scope when no file is found" do
+        expect { subject.environmentalize!(empty_secrets, "any_scope") }.not_to raise_error
+      end
+
       it "still environmentalizes top-level variables" do
         ENV["FAVORITE_COLOR"] = nil
 
