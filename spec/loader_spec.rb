@@ -25,6 +25,7 @@ describe Secretive::Loader do
 
     context "without a secrets file" do
       it "doesn't barf" do
+        subject.stub(:warn) # Prevent warning from displaying in test output
         expect { subject.environmentalize!(nonexistent_secrets) }.not_to raise_error
       end
 
