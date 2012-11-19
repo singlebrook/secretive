@@ -16,6 +16,6 @@ namespace :secretive do
     confirmation = $stdin.gets.chomp
     raise unless confirmation == "y"
 
-    sh "heroku config:add #{Secrets.for_heroku('production')} --app #{@heroku_app}"
+    sh "heroku config:add #{Secretive.for_heroku('production')} --app #{@heroku_app}"
   end
 end
