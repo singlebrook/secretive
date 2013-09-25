@@ -1,4 +1,7 @@
 # Secretive
+
+NB: This fork of the secretive gem simply updates the gemspec to allow for Rails 4 and bumps the version so bundler will load it during an upgrade from Rails 3 to Rails 4.
+
 ### Secrets, secrets, are now fun. *(Exposed secrets hurt someone.)*
 
 Secretive is a way to configure your application's ENV variables using a .yml file.
